@@ -15,5 +15,5 @@ MonoBehaviour:
   stage: 5
   radius: 0.67
   mergeScore: 21
-  sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  sprite: {fileID: 21300000, guid: 320a5240bed1eb24dadd089002f8093a, type: 3}
   prefab: {fileID: 4136939960733034802, guid: 25441911bac6b904284c736c14f5a69f, type: 3}
