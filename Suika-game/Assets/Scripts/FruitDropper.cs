@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FruitDropper : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class FruitDropper : MonoBehaviour
         _cooldownTimer -= Time.deltaTime;
         MovePreview();
 
-        if (Input.GetMouseButtonDown(0) && _cooldownTimer <= 0f)
+        if (Mouse.current.leftButton.wasPressedThisFrame && _cooldownTimer <= 0f)
             Drop();
     }
 
@@ -41,7 +42,7 @@ public class FruitDropper : MonoBehaviour
         if (_preview == null)
             return;
 
-        var mouseWorld = _cam.ScreenToWorldPoint(Input.mousePosition);
+        var mouseWorld = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         float x = Mathf.Clamp(mouseWorld.x, minX, maxX);
         _preview.transform.position = new Vector3(x, transform.position.y, 0f);
     }

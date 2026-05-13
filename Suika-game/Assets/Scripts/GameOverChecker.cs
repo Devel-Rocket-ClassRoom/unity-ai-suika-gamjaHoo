@@ -10,6 +10,7 @@ public class GameOverChecker : MonoBehaviour
     float restVelocityThreshold = 0.3f;
 
     readonly HashSet<Collider2D> _fruitsAbove = new();
+    static readonly Predicate<Collider2D> IsDestroyed = c => c == null;
     float _timer;
     bool _counting;
 
@@ -33,8 +34,7 @@ public class GameOverChecker : MonoBehaviour
         if (GameManager.Instance.IsGameOver)
             return;
 
-        // 파괴된 오브젝트 제거
-        _fruitsAbove.RemoveWhere(c => c == null);
+        _fruitsAbove.RemoveWhere(IsDestroyed);
 
         bool anyResting = false;
         foreach (var col in _fruitsAbove)
