@@ -33,13 +33,17 @@ public class FruitDropper : MonoBehaviour
         _cooldownTimer -= Time.deltaTime;
         MovePreview();
 
-        if (Mouse.current.leftButton.wasPressedThisFrame && _cooldownTimer <= 0f)
+        if (
+            Mouse.current != null
+            && Mouse.current.leftButton.wasPressedThisFrame
+            && _cooldownTimer <= 0f
+        )
             Drop();
     }
 
     void MovePreview()
     {
-        if (_preview == null)
+        if (_preview == null || Mouse.current == null)
             return;
 
         var mouseWorld = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
