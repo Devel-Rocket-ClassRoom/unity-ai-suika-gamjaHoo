@@ -7,13 +7,11 @@ public class GameOverChecker : MonoBehaviour
     [SerializeField]
     float triggerDuration = 2f;
 
-    [SerializeField]
-    float restVelocityThreshold = 0.3f;
-
     readonly HashSet<Collider2D> _fruitsAbove = new();
     static readonly Predicate<Collider2D> IsDestroyed = c => c == null;
     float _timer;
-    bool _counting;
+
+    void OnEnable() => _timer = triggerDuration;
 
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -27,7 +25,7 @@ public class GameOverChecker : MonoBehaviour
     {
         _fruitsAbove.Remove(col);
         if (_fruitsAbove.Count == 0)
-            ResetTimer();
+            _timer = triggerDuration;
     }
 
     void Update()
@@ -37,37 +35,11 @@ public class GameOverChecker : MonoBehaviour
 
         _fruitsAbove.RemoveWhere(IsDestroyed);
 
-        bool anyResting = false;
-        foreach (var col in _fruitsAbove)
-        {
-            var rb = col.GetComponent<Rigidbody2D>();
-            if (rb != null && rb.linearVelocity.magnitude <= restVelocityThreshold)
-            {
-                anyResting = true;
-                break;
-            }
-        }
+        if (_fruitsAbove.Count == 0)
+            return;
 
-        if (anyResting)
-        {
-            if (!_counting)
-            {
-                _counting = true;
-                _timer = triggerDuration;
-            }
-            _timer -= Time.deltaTime;
-            if (_timer <= 0f)
-                GameManager.Instance.TriggerGameOver();
-        }
-        else
-        {
-            ResetTimer();
-        }
-    }
-
-    void ResetTimer()
-    {
-        _counting = false;
-        _timer = triggerDuration;
+        _timer -= Time.deltaTime;
+        if (_timer <= 0f)
+            GameManager.Instance.TriggerGameOver();
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,13 +16,17 @@ public class FruitDropper : MonoBehaviour
     [SerializeField]
     float maxX = 2.3f;
 
+    public event Action<Sprite> OnNextFruitChanged;
+
     GameObject _preview;
+    int _nextStage;
     float _cooldownTimer;
     Camera _cam;
 
     void Start()
     {
         _cam = Camera.main;
+        _nextStage = UnityEngine.Random.Range(0, fruitTable.maxDropStage + 1);
         SpawnPreview();
     }
 
@@ -74,7 +79,9 @@ public class FruitDropper : MonoBehaviour
 
     void SpawnPreview()
     {
-        int stage = Random.Range(0, fruitTable.maxDropStage + 1);
-        _preview = FruitSpawner.Instance.Spawn(stage, transform.position, isPreview: true);
+        int currentStage = _nextStage;
+        _nextStage = UnityEngine.Random.Range(0, fruitTable.maxDropStage + 1);
+        _preview = FruitSpawner.Instance.Spawn(currentStage, transform.position, isPreview: true);
+        OnNextFruitChanged?.Invoke(fruitTable.Get(_nextStage)?.sprite);
     }
 }
