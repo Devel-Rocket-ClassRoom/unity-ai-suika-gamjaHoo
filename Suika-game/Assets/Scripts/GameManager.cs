@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,9 @@ public class GameManager : MonoBehaviour
 
     public int Score { get; private set; }
     public bool IsGameOver { get; private set; }
+
+    public event Action<int> OnScoreChanged;
+    public event Action OnGameOver;
 
     void Awake()
     {
@@ -23,6 +27,7 @@ public class GameManager : MonoBehaviour
         if (IsGameOver)
             return;
         Score += points;
+        OnScoreChanged?.Invoke(Score);
     }
 
     public void TriggerGameOver()
@@ -30,11 +35,11 @@ public class GameManager : MonoBehaviour
         if (IsGameOver)
             return;
         IsGameOver = true;
-        Debug.Log($"Game Over! Score: {Score}");
+        OnGameOver?.Invoke();
     }
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
