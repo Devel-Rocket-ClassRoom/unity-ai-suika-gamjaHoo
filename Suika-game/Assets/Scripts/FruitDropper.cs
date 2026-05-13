@@ -62,7 +62,10 @@ public class FruitDropper : MonoBehaviour
 
         var rb = _preview.GetComponent<Rigidbody2D>();
         if (rb != null)
+        {
+            rb.constraints = RigidbodyConstraints2D.None;
             rb.isKinematic = false;
+        }
 
         _preview = null;
         _cooldownTimer = dropCooldown;
