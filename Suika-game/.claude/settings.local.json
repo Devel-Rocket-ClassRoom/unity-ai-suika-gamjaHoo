@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(update-config)",
+      "Bash(git *)",
+      "mcp__unity-mcp__Unity_RunCommand",
+      "mcp__unity-mcp__Unity_GetConsoleLogs",
+      "Bash(Select-String -Pattern \"forclaude\" -i)",
+      "Bash(powershell *)",
+      "Bash(Get-ChildItem \"C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\claude-cli-nodejs\\\\Cache\\\\C--Users-user-source-repos-unity-ai-suika-gamjaHoo-Suika-game\\\\mcp-logs-unity-mcp\\\\\" | Sort-Object LastWriteTime -Descending | Select-Object -First 5 *)",
+      "Bash(Get-ChildItem \"C:/Users/user/AppData/Local/claude-cli-nodejs/Cache/C--Users-user-source-repos-unity-ai-suika-gamjaHoo-Suika-game/mcp-logs-unity-mcp/\")",
+      "Bash(Sort-Object LastWriteTime -Descending)",
+      "Bash(Select-Object -First 5)",
+      "Bash(dir *)",
+      "Bash(tasklist)",
+      "Bash(findstr /i \"relay\")",
+      "Bash(xargs grep -l \"revok\\\\|approval\\\\|ApprovalToken\")",
+      "Bash(\"/c/Users/user/.unity/relay/relay_win.exe\" --help)",
+      "Bash(wmic process *)",
+      "Bash(powershell.exe *)",
+      "Bash(\"/c/Users/user/.unity/relay/relay_win.exe\" --relay --port 9001 --mcp-client-port 9002 --editor-pid 59640 --shutdown-delay 300)"
+    ]
+  }
+}
