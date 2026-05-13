@@ -26,7 +26,7 @@ public class FruitDropper : MonoBehaviour
     void Start()
     {
         _cam = Camera.main;
-        _nextStage = UnityEngine.Random.Range(0, fruitTable.maxDropStage + 1);
+        _nextStage = fruitTable.GetWeightedRandomDropStage();
         SpawnPreview();
     }
 
@@ -80,7 +80,7 @@ public class FruitDropper : MonoBehaviour
     void SpawnPreview()
     {
         int currentStage = _nextStage;
-        _nextStage = UnityEngine.Random.Range(0, fruitTable.maxDropStage + 1);
+        _nextStage = fruitTable.GetWeightedRandomDropStage();
         _preview = FruitSpawner.Instance.Spawn(currentStage, transform.position, isPreview: true);
         OnNextFruitChanged?.Invoke(fruitTable.Get(_nextStage)?.sprite);
     }

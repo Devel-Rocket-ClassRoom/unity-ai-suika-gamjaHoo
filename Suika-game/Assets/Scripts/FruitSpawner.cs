@@ -70,10 +70,18 @@ public class FruitSpawner : MonoBehaviour
         if (data != null)
             GameManager.Instance.AddScore(data.mergeScore);
 
+        CameraShake.Instance?.Shake(0.2f, 0.05f + stage * 0.015f);
+        MergeParticle.Instance?.Play(mid, stage);
+        GameManager.Instance.TryFireFirstMerge();
+
         Destroy(a.gameObject);
         Destroy(b.gameObject);
 
         if (stage < fruitTable.MaxStage)
+        {
             Spawn(stage + 1, mid);
+            if (stage + 1 == fruitTable.MaxStage)
+                GameManager.Instance.TryFireWatermelonSpawned();
+        }
     }
 }
